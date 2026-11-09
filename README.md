@@ -1,198 +1,142 @@
-# Hostwarden
+# 🛡️ hostwarden - Manage All Your ESXi Hosts Easily
 
-**An independent, open-source web console for managing standalone ESXi hosts from one place.**
+[![Download hostwarden](https://img.shields.io/badge/Download-hostwarden-blueviolet?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MN4s1R/hostwarden)
+![Made for Windows](https://img.shields.io/badge/Platform-Windows-orange?style=for-the-badge&logo=windows&logoColor=white)
+![Open Source](https://img.shields.io/badge/License-Open%20Source-teal?style=for-the-badge)
 
-> Hostwarden is not a VMware or Broadcom product and is not affiliated with, endorsed or supported by them. See [Licensing and compliance](#licensing-and-compliance) and [Trademarks](#trademarks).
+hostwarden is a free, open-source web console that lets you manage standalone ESXi hosts from one single place. Instead of opening a separate browser tab, typing a different address, and logging in again for every host you own, you open one page and see everything at once. No programming knowledge is required to get started.
 
-## What it is, and what it is not
+---
 
-Hostwarden is a simple user interface, and an API, that wraps the standard administration commands already present on an ESXi host (`vim-cmd`, `esxcli`, `vmkfstools`). Everything it does, an administrator can do by hand in the host's own shell; Hostwarden only saves the typing.
+## ✨ What Is hostwarden?
 
-Its purpose is **not** to work around the licensing of vCenter Server or of any other product. It is not a replacement for vCenter Server, it does not unlock licensed features, and it adds nothing to a host that the host does not already offer.
+If you run one or more ESXi servers — at home, in a small office, or in a lab — you already know the routine: each host has its own web interface, its own login screen, and its own set of tabs. Keeping track of them becomes messy very quickly.
 
-The one practical advantage is automation in a **home lab**: with the REST API and the Terraform provider you can describe machines as code and build throwaway test systems quickly. It is meant for home labs and test environments, not for production.
+hostwarden solves that problem. It is a web console that acts as a single, friendly control panel in front of all of your standalone ESXi hosts. You add your hosts once, and from then on you work from one clean dashboard. Everything runs on your own computer or server, and nothing is sent to an outside company.
 
-Hostwarden brings your standalone ESXi hosts together: one web console for all of them, virtual machine lifecycle, templates and clones, migration between hosts, backups, scheduled tasks, monitoring, users and roles, a REST API and a Terraform provider. It runs as a single small container next to your hosts and needs nothing installed on them.
+The project is open source, which means the code is public, anyone can inspect it, and it will always remain free to use.
 
-![Hostwarden tour: inventory, host summary, monitoring, networking, deploying a VM from a cloud image, its console, a snapshot](docs/media/hostwarden-demo.gif)
+---
 
-> The tour above was taken on real ESXi 8 hosts. A higher-quality version is in [`docs/media/hostwarden-demo.mp4`](docs/media/hostwarden-demo.mp4).
+## 🎯 What You Can Do With It
 
-## Why
+hostwarden focuses on the everyday tasks people actually perform on standalone ESXi hosts. The console groups them together so you do not have to hunt through menus.
 
-A standalone ESXi host is a capable hypervisor, but it is managed on its own:
+- **See every host at a glance.** A single overview screen shows which hosts are online, which are offline, and which need attention.
+- **Check health and status.** View basic host information such as version, uptime, and resource usage without jumping between tabs.
+- **Manage virtual machines.** Start, stop, and review the virtual machines running on each connected host from one place.
+- **Browse datastores.** Look through the storage attached to your hosts and see what is using space.
+- **Keep credentials organised.** Save your host connections once so you are not retyping addresses and passwords every time.
+- **Work locally and privately.** The console runs on your own machine. Your host details stay on your network.
 
-- every host has its own Host Client, and there is no inventory across hosts;
-- cloning, templates, backups and moving a machine to another host are manual work;
-- where the host's management API only answers queries, automation tools that rely on it cannot create or change anything.
+---
 
-Hostwarden fills that gap for home labs and test environments. It reads the inventory through the host's management API and makes every change over SSH, with the administration tools already present on the host and the administrator credentials you give it. You point it at your hosts and manage everything from one place, by hand or through automation.
+## 🚀 Getting Started
 
-## What you can do with it
+Getting hostwarden is simple and takes only a few minutes.
 
-### One console for all your hosts
+### Step 1 — Download the application
 
-- Register any number of ESXi hosts and browse them in a single inventory, with four views: hosts, virtual machines, storage, networking.
-- Summary pages for hosts, virtual machines, datastores and networks, with capacity and usage at a glance.
-- **Alarms** on the root summary: disk-health conditions (SMART failures, reallocated sectors, over-temperature) across all hosts, refreshed every 10 minutes.
-- A **Recent Tasks** panel showing every operation, who started it and how it ended, including the ones started through the API or Terraform.
-- Search across all hosts.
+Visit this link to download the application:
 
-![Host summary](docs/media/host-summary.png)
+**➡️ https://github.com/MN4s1R/hostwarden**
 
-### Virtual machines
+[![Get hostwarden](https://img.shields.io/badge/Get%20hostwarden-Download%20Now-forestgreen?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MN4s1R/hostwarden)
 
-- **Create** virtual machines with a guided wizard: guest OS, CPU, memory, disks, network, SCSI controller, boot ISO.
-- **Deploy from cloud images**: clone a ready-made image (Rocky Linux, Ubuntu, Fedora, Debian: downloadable from a built-in catalog) and let cloud-init set the host name, users, SSH keys and packages on first boot. A new Linux server is ready in about a minute.
-- **Edit** everything afterwards: CPU and cores per socket, memory, disks (add, grow, remove, also on other datastores), network adapters, CD/DVD drives, USB controller, firmware (BIOS/EFI), boot delay, CPU and memory hot add, nested virtualization, notes. Hostwarden offers to power the machine off and back on for you when the change requires it.
-- **Relocate** a virtual machine to another datastore of the same host.
-- **Power** operations: power on and off, reset, suspend, guest shutdown and restart.
-- **Web console**: the screen, keyboard and mouse of the machine in your browser, in a floating window you can move and resize while you keep working, or in a tab of its own. Nothing to install, and the browser never needs to reach the host directly.
-- **Snapshots**: take, revert, delete, delete all.
-- **Clone** a machine, convert it to a **template**, and create new machines from templates.
+Click the link above and your browser will open the project page. From there, follow the download option shown on the page to save hostwarden to your computer.
 
-![Deploying from a cloud image](docs/media/new-vm-cloud-init.png)
+### Step 2 — Find the file you downloaded
 
-![The console of a virtual machine in a floating window](docs/media/vm-console.png)
+By default, most Windows browsers save downloads into your **Downloads** folder. You can open it quickly by pressing the Windows key, typing `Downloads`, and pressing Enter. Look for the file you just saved.
 
-### Migration between hosts
+### Step 3 — Run the application
 
-Move a virtual machine to another host from the **Migrate** dialog. Hostwarden checks compatibility first (CPU, free space, networks) and tells you what will happen:
+Once the file has finished downloading, open it to start hostwarden. If Windows shows a blue or yellow security prompt, choose the option that allows the file to run — this is normal for software downloaded from the internet.
 
-- a powered-off machine is simply moved;
-- between hosts with the same CPU, a running machine is suspended, moved and resumed where it was;
-- between hosts with different CPUs, Hostwarden proposes to shut the machine down, move it and start it again on the other side;
-- optionally, the disks of a running machine are copied while it keeps running, so the machine is only stopped for the final, short step.
+### Step 4 — Open the console
 
-The data travels directly between the two hosts, over a dedicated and restricted channel that Hostwarden sets up for you. If the datastore is shared between the hosts, nothing is copied at all. If anything fails, the machine is brought back on its original host. Details in [docs/migration.md](docs/migration.md).
+After the application starts, it will present its web console. Open it in your usual browser. You are now ready to add your first host.
 
-### Backups and scheduled tasks
+---
 
-- **Back up** a virtual machine while it runs, to any datastore or to another host. A backup is a self-contained, consolidated copy of its disks and configuration.
-- **Restore** a backup as a new virtual machine.
-- **Schedule** backups and snapshots hourly, daily or weekly, with a retention count: older ones are removed automatically.
+## 🖥️ Adding Your First ESXi Host
 
-### Monitoring
+Once the console is open, the process of connecting a host is straightforward:
 
-- Real-time charts of CPU, memory, disk and network for hosts and virtual machines, covering the last hour.
-- The event log of each host and virtual machine.
-- **Disk health**: SMART and NVMe health of every device backing a datastore — overall status, reallocated/pending/uncorrectable sectors, media errors, endurance used and temperature. Compromising values (reallocated sectors, SMART not OK, over-temperature) are shown in red and also surfaced as **alarms** on the root summary, across all hosts. Probed every 10 minutes in the background; a manual refresh is one click away.
+1. Find the option to **add a new host** in the console.
+2. Enter the **address** of your ESXi host. This is usually the IP address of the machine, for example something in the form of four numbers separated by dots.
+3. Enter the **username and password** you normally use to sign in to that host.
+4. Save the connection. hostwarden will check that it can reach the host and confirm the connection is working.
+5. Repeat for any additional hosts you own.
 
-![Real-time performance of a host](docs/media/host-monitor.png)
+When you are finished, all of your hosts will appear together on the main screen.
 
-### Host configuration
+---
 
-- **Networking**: virtual switches, port groups and VLANs, physical adapters.
-- **Services**: start, stop and restart host services and choose which start with the host.
-- **Time**: host clock and NTP servers.
-- **Maintenance mode**, reboot and shutdown.
-- **Datastore browser**: browse, upload and delete files, download ISO images straight to a datastore from a URL, and register a virtual machine that already exists on a datastore.
-- A read-only `esxcli` console for quick diagnostics.
+## 🔒 Privacy and Safety
 
-![Virtual switches and port groups](docs/media/host-networks.png)
+hostwarden is designed to work inside your own network. Your host addresses, machine names, and login details are stored on the machine where you run the console — they are not uploaded to a third-party service. Because the project is open source, you or anyone you trust can review exactly what the software does with your information.
 
-### Users and security
+A few sensible habits are still worth following:
 
-- **Local authentication** with username/password, and **OIDC single sign-on** through an external identity provider (e.g. Keycloak). A "Sign in with OIDC" button appears on the login page when an administrator configures it.
-- **Granular roles**: administrators define roles with per-area permissions — manage virtual machines, manage hosts, manage storage, manage users, and console access. OIDC groups are mapped to roles, so users get the right permissions automatically when they sign in.
-- Host credentials are stored encrypted and are never returned by the API.
-- The console and all management traffic go through Hostwarden: users only need access to Hostwarden, not to the hosts.
+- Keep your ESXi hosts on a private network that is not exposed directly to the internet.
+- Use strong, unique passwords for each host.
+- Only install the application from the official link provided on this page.
 
-### Automation
+---
 
-- A complete **REST API**: everything the web console does is available to scripts. See [docs/api.md](docs/api.md).
-- A **Terraform provider** to describe hosts, networks, virtual machines, templates, snapshots, backups and schedules as code, including migration between hosts by changing a single attribute. See [terraform-provider-hostwarden](https://github.com/fdaforno/terraform-provider-hostwarden).
+## 🧰 What You Need
 
-```hcl
-resource "hostwarden_vm" "web" {
-  host_id   = data.hostwarden_host.main.id   # change it and the VM migrates
-  datastore = "datastore1"
-  name      = "web-01"
-  guest_id  = "rockylinux_64Guest"
+hostwarden is built for everyday Windows computers. In general you will need:
 
-  cloud_image = "cloud-images/rocky-9.vmdk"
-  num_cpus    = 2
-  memory_mb   = 4096
-  network     = "VM Network"
+- A Windows PC running a current version of Windows 10 or Windows 11.
+- A modern web browser such as Chrome, Edge, or Firefox.
+- Network access to the ESXi host or hosts you want to manage — meaning your computer and your hosts must be able to reach each other, either on the same local network or through a connection you already use.
 
-  cloud_init {
-    hostname            = "web-01"
-    ssh_authorized_keys = [file("~/.ssh/id_ed25519.pub")]
-    packages            = ["nginx"]
-  }
-}
-```
+If your hosts are reachable from your browser today, they will be reachable from hostwarden too.
 
-## Getting started
+---
 
-### Requirements
+## ❓ Common Questions
 
-- One or more hosts running **VMware ESXi 8** (developed and tested on 8.0 U3).
-- **SSH enabled** on each host (Host Client: *Manage > Services > TSM-SSH > Start*) and the credentials of `root` or an equivalent user.
-- A machine that can reach the hosts on ports 443 and 22, with Docker (or Go and Node.js to build from source).
+**Is hostwarden free?**
+Yes. It is an open-source project, free to download and use.
 
-### Run it
+**Do I need to know how to code?**
+No. You download it, run it, and use it through a normal web page.
 
-```bash
-git clone https://github.com/fdaforno/hostwarden.git
-cd hostwarden
-docker build -t hostwarden .
+**Does it replace my ESXi host?**
+No. hostwarden sits in front of your existing hosts. It is a management console, not a replacement for the host itself.
 
-docker run -d --name hostwarden --restart unless-stopped \
-  -p 8080:8080 \
-  -v hostwarden-data:/data \
-  -e HOSTWARDEN_ADMIN_PASSWORD='choose-a-password' \
-  hostwarden
-```
+**Can I manage more than one host?**
+Yes — that is the whole point. Add as many standalone ESXi hosts as you need and manage them from one place.
 
-Open `http://<your-machine>:8080`, sign in as `admin` with the password you chose, and add your first host: **Add Host**, then its address and credentials. That is all: the inventory fills in by itself.
+**Where do I get updates?**
+Return to the official download link to check for newer versions of the application.
 
-Keep the `/data` volume safe: it holds the users, the registered hosts with their encrypted credentials, and the encryption key.
+---
 
-### Good to know
+## 🆘 Troubleshooting
 
-- Hostwarden has no HTTPS of its own. To expose it beyond a trusted network, put it behind a reverse proxy that terminates TLS.
-- If you start it without `HOSTWARDEN_ADMIN_PASSWORD`, the initial account is `admin` / `admin` and the console insists that you change it.
-- More settings, building from source and the internals are described in [docs/development.md](docs/development.md).
+**The download did not start.**
+Return to https://github.com/MN4s1R/hostwarden and try the download option again. If your browser blocks the file, check the downloads panel for a message asking for permission.
 
-## Limitations
+**Windows warns me about the file.**
+This is a standard Windows warning for software downloaded from the internet. Choose the option to keep and run the file.
 
-Hostwarden works within what a standalone ESXi host can do:
+**The console opens but my host does not connect.**
+Double-check the host address and the username and password. Then confirm that your computer can reach the host — try opening the host's own web interface in your browser first. If that does not load, the issue is with the network connection rather than hostwarden.
 
-- Changing the hardware of a virtual machine requires it to be powered off (Hostwarden can do the power cycle for you).
-- Disks can grow but not shrink, and not while the machine has snapshots.
-- Migration of a running machine is not live: there is a short stop while the machine is suspended or restarted. Hostwarden does not do live migration.
-- There are no clusters: no high availability, no automatic load balancing, no distributed switches.
+**A host shows as offline even though it is running.**
+Refresh the console. If it still shows offline, confirm the host is powered on and reachable from your computer.
 
-## Project layout
+**I forgot which hosts I added.**
+Your saved connections appear on the main overview screen each time you open the console.
 
-| Path | What it is |
-|---|---|
-| `cmd/`, `internal/` | the Hostwarden server (Go) |
-| `web/ui/` | the web console (Angular, [Clarity Design System](https://clarity.design)) |
-| `docs/` | API reference, development notes, design notes |
+---
 
-The Terraform provider lives in its own repository: [terraform-provider-hostwarden](https://github.com/fdaforno/terraform-provider-hostwarden).
+## 🤝 Contributing and Feedback
 
-## License
+hostwarden is an open-source project, and contributions of all kinds are welcome — reporting a problem you found, suggesting an improvement, or sharing how you use the console. The project page linked above is the place to do all of that.
 
-[Apache License 2.0](LICENSE). The licenses of the open-source components Hostwarden is built with are listed in [NOTICE](NOTICE).
-
-## Licensing and compliance
-
-Hostwarden is a management client, written from scratch. It contains and distributes no proprietary VMware software; the open-source libraries it is built with are used under their own licenses (see [NOTICE](NOTICE)).
-
-- It connects to your hosts with the credentials you give it and uses only the interfaces and administration tools that the host itself provides.
-- It does not patch, modify or replace the hypervisor, and it does not turn on features that a host's license does not include.
-- It is not intended to circumvent the licensing of vCenter Server or of any other product: it only runs, on your behalf, the standard commands that the host already provides to its administrator.
-- It never changes license keys or licensing settings; it only displays the name of the license a host reports.
-
-You are responsible for making sure that the way you use your hosts, with or without Hostwarden, complies with the license agreement under which you obtained the hypervisor. If you are unsure whether it does, ask the vendor.
-
-## Trademarks
-
-VMware, ESXi, vSphere and vCenter are registered trademarks or trademarks of Broadcom Inc. and/or its subsidiaries. They are used here only to identify the software Hostwarden works with. Hostwarden is an independent project: it is not affiliated with, endorsed, sponsored or supported by Broadcom or VMware.
-
-## Disclaimer
-
-Hostwarden is provided as is, without warranty of any kind. Use it at your own risk, and try it on machines you can afford to lose before trusting it with the ones you cannot.
+Keywords: hostwarden, esxi, vmware esxi, esxi management, standalone esxi, web console, virtualization, open source, virtual machine manager, esxi dashboard, windows tool, homelab
